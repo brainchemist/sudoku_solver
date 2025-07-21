@@ -1,3 +1,5 @@
+requests
 opencv-python
 pytesseract
 numpy
+python-dotenv
