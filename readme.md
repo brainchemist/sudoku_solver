@@ -45,22 +45,6 @@ You can install the required Python libraries using `pip`:
 pip install -r requirements.txt
 ```
 
-### Install Tesseract OCR
-
-Tesseract OCR is needed for extracting text from images. You can install it using the following commands:
-
-#### On Ubuntu/Debian:
-
-```bash
-sudo apt install tesseract-ocr
-```
-
-#### On macOS (with Homebrew):
-
-```bash
-brew install tesseract
-```
-
 ## Setup
 
 1. **Clone the repository**:
