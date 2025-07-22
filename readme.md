@@ -98,16 +98,3 @@ Place your Sudoku image in the `image_processing` directory as `sudoku_photo.jpg
 ### 3. **Solver Output**:
 The C program will solve the Sudoku puzzle, and the output will be printed in the terminal.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
-
----
-
-### Instructions:
-
-1. **Markdown Syntax**: Copy the above content and save it as a `README.md` file in your project directory.
-2. **Customization**: Replace the `your_rapidapi_key_here` with your actual API key in the `.env` section.
-
-Let me know if you need anything else!
