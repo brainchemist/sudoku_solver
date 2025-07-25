@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sudoku-solver-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sudoku-solver
+  template:
+    metadata:
+      labels:
+        app: sudoku-solver
+    spec:
+      containers:
+        - name: sudoku-solver
+          image: brainchemist/sudoku-solver:latest
+          ports:
+            - containerPort: 5000  #
