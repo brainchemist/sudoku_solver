@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Solver</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Sudoku Solver</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #camera, #upload {
+            margin: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            display: none;
+        }
+        #solution {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: left;
+            margin-top: 20px;
+            font-family: monospace;
+        }
+        #solution img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sudoku Solver</h1>
+    <p>Take a picture of your Sudoku puzzle or upload an image.</p>
+
+    <!-- Button to access camera -->
+    <video id="camera" width="320" height="240" autoplay></video>
+    <br>
+    <button id="start-camera">Start Camera</button>
+    <button id="capture" disabled>Capture Photo</button>
+
+    <br><br>
+
+    <input type="file" id="upload" accept="image/*">
+    <br>
+
+    <div id="result">
+        <h2>Solved Sudoku:</h2>
+        <img id="solvedImage" src="../static/solved_sudoku.png" alt="Solved Sudoku" style="display:none; border:1px solid #333;">
+
+    </div>
+
+    <script>
+        const startCameraButton = document.getElementById('start-camera');
+        const captureButton = document.getElementById('capture');
+        const cameraElement = document.getElementById('camera');
+        const resultDiv = document.getElementById('result');
+        const solutionDiv = document.getElementById('solution');
+        const uploadInput = document.getElementById('upload');
+        let localStream = null;
+
+        startCameraButton.addEventListener('click', async () => {
+            localStream = await navigator.mediaDevices.getUserMedia({ video: true });
+            cameraElement.srcObject = localStream;
+            captureButton.disabled = false;
+            startCameraButton.disabled = true;
+        });
+
+        captureButton.addEventListener('click', async () => {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = cameraElement.videoWidth;
+            canvas.height = cameraElement.videoHeight;
+            context.drawImage(cameraElement, 0, 0, canvas.width, canvas.height);
+
+            const imageUrl = canvas.toDataURL('image/jpeg');
+            sendImageToBackend(imageUrl);
+        });
+
+        uploadInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const imageUrl = reader.result;
+                    sendImageToBackend(imageUrl);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        async function sendImageToBackend(imageData) {
+            const response = await fetch('/solve-sudoku', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image: imageData })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+
+                solutionDiv.textContent = JSON.stringify(data.solution, null, 2);
+                resultDiv.style.display = 'block';
+
+                const imgElement = document.getElementById('solvedImage');
+                imgElement.style.display = 'block';
+                imgElement.src = data.image_url;
+            } else {
+                alert('Error: ' + response.statusText);
+            }
+        }
+
+    </script>
+</body>
+</html>

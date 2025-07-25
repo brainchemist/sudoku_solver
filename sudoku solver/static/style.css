@@ -1,0 +1,126 @@
+/* General body and layout settings */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Main container */
+.container {
+    text-align: center;
+    width: 80%;
+    max-width: 1000px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading and subheading */
+h1 {
+    font-size: 2.5em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.1em;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+}
+
+/* Upload and camera buttons */
+button, input[type="file"] {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:disabled {
+    background-color: #95a5a6;
+}
+
+button:hover, input[type="file"]:hover {
+    background-color: #2980b9;
+}
+
+#capture {
+    margin-top: 10px;
+}
+
+/* Camera preview */
+#camera {
+    border: 2px solid #3498db;
+    border-radius: 8px;
+}
+
+/* Image result section */
+#result {
+    margin-top: 30px;
+    display: none;
+}
+
+#solution {
+    margin-top: 20px;
+    font-family: monospace, 'Courier New', Courier, sans-serif;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #2c3e50;
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#solution img {
+    margin-top: 20px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #camera {
+        width: 100%;
+    }
+
+    button, input[type="file"] {
+        width: 100%;
+        font-size: 0.9em;
+    }
+
+    #solution {
+        font-size: 1em;
+    }
+}
